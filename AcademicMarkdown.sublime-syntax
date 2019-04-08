@@ -2,15 +2,8 @@
 ---
 # http://www.sublimetext.com/docs/3/syntax.html
 name: AcademicMarkdown2
-file_extensions:
-  - md
-  - mdown
-  - markdown
-  - markdn
 first_line_match: (?i)^format:\s*complete\s*$
 scope: text.html.markdown.academicmarkdown
-variables:
-  header: ((?=[A-Za-z0-9])[\w -_]+)(:)
 contexts:
   main:
     - include: citekeys
@@ -19,13 +12,13 @@ contexts:
     - include: critic-highlight
     - include: critic-deletion
     - include: critic-comment
-    - match: '^{{header}}\s*'
+    - match: '^([A-Za-z0-9_]+)(:)\s*'
       captures:
         1: keyword.other.multimarkdown
         2: punctuation.separator.key-value.multimarkdown
       push:
         - meta_scope: meta.header.multimarkdown
-        - match: '^$|^(?={{header}})'
+        - match: "^$|^(?=[A-Za-z0-9_]+:)"
           pop: true
         - match: .+
           comment: |
@@ -33,10 +26,6 @@ contexts:
                                     (for the parent rule) is that we do not want
                                     newlines to be marked as string.unquoted
           scope: string.unquoted.multimarkdown
-    - match: ""
-      pop: true
-      push: body
-  body:
     - match: |-
         (?x)^
         (?= [ ]{,3}>
