@@ -1,7 +1,7 @@
 %YAML 1.2
 ---
 # http://www.sublimetext.com/docs/3/syntax.html
-name: AcademicMarkdown2
+name: AcademicMarkdown
 first_line_match: (?i)^format:\s*complete\s*$
 scope: text.html.markdown.academicmarkdown
 contexts:
