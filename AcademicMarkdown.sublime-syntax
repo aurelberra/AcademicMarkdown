@@ -5,7 +5,6 @@ name: AcademicMarkdown2
 first_line_match: (?i)^format:\s*complete\s*$
 scope: text.html.markdown.academicmarkdown
 contexts:
-contexts:
   main:
     - match: (?=(?<!\s)---(\s*coffee|\s*json)?\n$)
       push: front-matter
