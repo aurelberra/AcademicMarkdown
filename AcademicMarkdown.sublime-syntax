@@ -408,6 +408,16 @@ contexts:
     - match: '\{\~\~(.*?)\~\~\}'
       comment: Editorial Substitution
       scope: criticmarkup.substitution
+  mustache-yaml:
+    - match: '\{\{[{&>#^/]?'
+      captures:
+        0: entity.name.tag.mustache
+      push:
+        - meta_scope: source.mustache.embedded.html
+        - match: '\}?\}\}'
+          captures:
+            0: entity.name.tag.mustache
+          pop: true
   escape:
     - match: '\\[-`*_#+.!(){}\[\]\\>]'
       scope: constant.character.escape.markdown
@@ -692,6 +702,7 @@ contexts:
     - include: critic-deletion
     - include: critic-comment
     - include: citekeys
+    - include: mustache-yaml
     - include: escape
     - include: ampersand
     - include: bracket
@@ -938,7 +949,7 @@ contexts:
         1: punctuation.definition.strikethrough.markdown
       push:
         - meta_scope: markup.strikethrough.markdown
-        - match: (?<=\S)(\1)
+        - match: (?<=\S)(\1)(?!\w)
           captures:
             1: punctuation.definition.strikethrough.markdown
           pop: true
