@@ -383,8 +383,9 @@ contexts:
                         HTML grammar will not mark it up as invalid.
       scope: meta.other.valid-bracket.markdown
   citekeys:
-    - match: '@[-\w:.]+'
+    - match: '@[\w:\-?!+]+'
       comment: This should highlight citekeys and @refs
+              # Using the color of the "Strings" element
       scope: string.other.link.description.title.markdown
   critic-addition:
     - match: '\{\+\+(.*?)\+\+[ \t]*(\[(.*?)\])?[ \t]*\}'
@@ -474,6 +475,7 @@ contexts:
     - include: fenced-js
     - include: fenced-ts
     - include: fenced-tsx
+    - include: fenced-r
     - include: fenced-ruby
     - include: fenced-python
     - include: fenced-lisp
@@ -558,6 +560,11 @@ contexts:
       embed: scope:source.python
       embed_scope: markup.raw.block.markdown markup.raw.block.fenced.markdown
       escape: ^(\1)\n
+  fenced-r: # added
+    - match: '(```|~~~)\s*\{?\s*(r)(?:[ \}].*$|\}?$)'
+      embed: scope:source.r
+      embed_scope: markup.raw.block.markdown markup.raw.block.fenced.markdown
+      escape: (```|~~~|{%\s*endhighlight\s*%})\n
   fenced-reason:
     - match: '^(\s*[`~]{3,})\s*(re|reason)\s*$'
       embed: scope:source.reason
@@ -987,7 +994,6 @@ contexts:
         7: punctuation.definition.tag.begin.html
         8: entity.name.tag.other.html
         9: punctuation.definition.tag.end.html
-
   latex-inline:
     - match: \\\$
     - match: |-
@@ -1009,7 +1015,6 @@ contexts:
         - match: \$
           scope: string.other.math.latex punctuation.definition.string.end.latex
           pop: true
-
   latex-display:
     - match: \$\$
       scope: string.other.math.latex punctuation.definition.string.begin.latex

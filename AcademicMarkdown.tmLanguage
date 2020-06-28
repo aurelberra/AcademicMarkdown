@@ -47,8 +47,7 @@
 			<string>#critic-comment</string>
 		</dict>
 
-
-		<!-- MultiMarkdown bit-->
+		<!-- MultiMarkdown -->
 		<dict>
 			<key>begin</key>
 			<string>^([A-Za-z0-9]+)(:)\s*</string>
@@ -84,13 +83,7 @@
 			</array>
 		</dict>
 
-
-
-
-		<!-- Include Markdown -->
-		<!-- TODO: figure out including markdown base rules -->
-		<!-- End Include Markdown -->
-
+		<!-- Markdown -->
 		<dict>
 			<key>begin</key>
 			<string>(?x)^
@@ -374,11 +367,12 @@
 				</dict>
 			</array>
 		</dict>
-
 	</array>
+
 	<key>repository</key>
 	<dict>
-		<!-- Critic markdown rules -->
+
+		<!-- Critic Markdown rules -->
 		<key>critic-substitution</key>
 		<dict>
 			<key>comment</key>
@@ -426,14 +420,15 @@
 			<key>name</key>
 			<string>criticmarkup.comment</string>
 		</dict>
-		<!-- End Critic markdown rules -->
 
 		<key>citekeys</key>
 		<dict>
 			<key>comment</key>
 			<string>This should highlight citekeys and @refs</string>
+			<!-- Using the color of the "Strings" element -->
 			<key>match</key>
-			<string>@[-\w:.]+</string>
+			<!-- <string>@[\w:-]+</string> --> <!-- modified AB 2020-06-27 -->
+			<string>@[\w:\-?!+]+</string>
 			<key>name</key>
 			<string>string.other.link.description.title.markdown</string>
 		</dict>
@@ -1001,7 +996,6 @@
 		<dict>
 			<key>patterns</key>
 			<array>
-
 				<dict>
 					<key>include</key>
 					<string>#critic-addition</string>
@@ -1623,6 +1617,7 @@
 		    <array>
 		        <dict>
 		            <key>include</key>
+		            <!-- <string>source.css.less</string> -->
 		            <string>source.less</string>
 		        </dict>
 		    </array>
@@ -1803,6 +1798,42 @@
 		        </dict>
 		    </array>
 		</dict>
+		<!-- added AB 2020-06-27 -->
+		<key>fenced-r</key>
+		<dict>
+            <key>begin</key>
+            <string>(```|~~~)\s*\{?\s*(r)(?:[ \}].*$|\}?$)</string>
+            <!-- <key>captures</key>
+            <dict>
+                <key>1</key>
+                <dict>
+                    <key>name</key>
+                    <string>punctuation.definition.fenced.markdown</string>
+                </dict>
+                <key>2</key>
+                <dict>
+                    <key>name</key>
+                    <string>variable.language.fenced.markdown</string>
+                </dict>
+                <key>3</key>
+                <dict>
+                    <key>name</key>
+                    <string>punctuation.definition.fenced.markdown</string>
+                </dict>
+            </dict> -->
+            <key>end</key>
+            <string>(```|~~~|{%\s*endhighlight\s*%})\n</string>
+            <key>name</key>
+            <string>markup.raw.block.markdown markup.raw.block.fenced.markdown</string>
+            <key>patterns</key>
+            <array>
+                <dict>
+                    <key>include</key>
+                    <string>source.r</string>
+                </dict>
+            </array>
+        </dict>		
+		<!-- /added -->
 		<key>fenced-ruby</key>
 		<dict>
 		    <key>begin</key>
@@ -1924,6 +1955,12 @@
 					<key>include</key>
 					<string>#fenced-ruby</string>
 				</dict>
+				<!-- added AB 2020-06-27 -->
+				<dict>
+					<key>include</key>
+					<string>#fenced-r</string>
+				</dict>
+				<!-- /added -->
 				<dict>
 					<key>include</key>
 					<string>#fenced-python</string>
@@ -1990,9 +2027,11 @@
 			</dict>
 		</dict>
 	</dict>
+
 	<key>scopeName</key>
 	<string>text.html.markdown.academicmarkdown</string>
 	<key>uuid</key>
 	<string>a4707381-4d89-4565-91d5-9ca845c2bc42</string>
+
 </dict>
 </plist>
